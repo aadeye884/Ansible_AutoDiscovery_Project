@@ -1,2 +1,2 @@
-# PetAdoption_Project2
-PetAdoption Containerization Project with Ansible AutoDiscovery
+# Pet Adoption_Project2
+Pet Adoption Containerization Project with Ansible AutoDiscovery
