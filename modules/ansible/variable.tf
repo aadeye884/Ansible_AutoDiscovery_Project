@@ -3,7 +3,7 @@ variable "instance_type_t2" {
 }
 
 variable "ami" {
-    default = "ami-0b0af3577fe5e3532"
+    default = "ami-06640050dc3f556bb"
 }
 
 variable "subnet_id" {
