@@ -40,12 +40,12 @@ module "dev_docker" {
   key_name               = module.dev_keypair.key_name
 }
 
-module "dev_rds" {
-  source    = "../../modules/rds"
-  vpc_sg_id = [module.dev_security_group.rdsSG]
-  subnet_id = [module.dev_vpc.subnet-id3, module.dev_vpc.subnet-id4]
-  rds_name  = "rds_subnet_group"
-}
+# module "dev_rds" {
+#   source    = "../../modules/rds"
+#   vpc_sg_id = [module.dev_security_group.rdsSG]
+#   subnet_id = [module.dev_vpc.subnet-id3, module.dev_vpc.subnet-id4]
+#   rds_name  = "rds_subnet_group"
+# }
 
 module "dev_iam" {
   source = "../../modules/iam"
@@ -97,7 +97,7 @@ module "dev_asg" {
 
 module "dev_route53" {
   source      = "../../modules/route53"
-  domain_name = "consultlawal.com"
+  domain_name = "www.elizabethfolzgroup.com"
   lb_dns_name = module.dev_loadbalancer.docker-lb-dns
   lb_zone_id  = module.dev_loadbalancer.docker-lb-zone-id
 }
