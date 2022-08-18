@@ -1,6 +1,7 @@
 # Provision aws route_53 
 resource "aws_route53_zone" "UST1-zone" {
   name = var.domain_name
+  force_destroy = true
 }
 
 # Create Route 53 A Record and Alias

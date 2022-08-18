@@ -97,7 +97,7 @@ module "dev_asg" {
 
 module "dev_route53" {
   source      = "../../modules/route53"
-  domain_name = "consultlawal.com"
+  domain_name = "www.elizabethfolzgroup.com"
   lb_dns_name = module.dev_loadbalancer.docker-lb-dns
   lb_zone_id  = module.dev_loadbalancer.docker-lb-zone-id
 }
