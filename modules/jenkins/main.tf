@@ -16,9 +16,19 @@ resource "aws_instance" "Jenkins_Server" {
   sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
   sudo yum update -y
   sudo yum upgrade -y
-  sudo yum install jenkins java-1.8.0-openjdk-devel -y --nobest
+  sudo yum install jenkins java-11-openjdk-devel -y --nobest
+  sudo yum install epel-release java-11-openjdk-
+  sudo systemctl daemon-reload
   sudo systemctl start jenkins
   sudo systemctl enable jenkins
+  sudo yum install -y yum-utils
+  sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  sudo yum update -y
+  sudo yum install docker-ce docker-ce-cli containerd.io -y
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  sudo usermod -aG docker ec2-user
+  sudo usermod -aG docker jenkins 
   echo "license_key: c32625464fc4f6eae500b09fa88fe0c93434NRAL" | sudo tee -a /etc/newrelic-infra.yml
   sudo curl -o /etc/yum.repos.d/newrelic-infra.repo https://download.newrelic.com/infrastructure_agent/linux/yum/el/7/x86_64/newrelic-infra.repo
   sudo yum -q makecache -y --disablerepo='*' --enablerepo='newrelic-infra'
