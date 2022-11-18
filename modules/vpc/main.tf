@@ -6,115 +6,111 @@ resource "aws_vpc" "VPC" {
   }
 }
 
-# create public subnet 1
-resource "aws_subnet" "PUB_SN1" {
+# create Public Subnet 1
+resource "aws_subnet" "PubSn1" {
   vpc_id            = aws_vpc.VPC.id
-  cidr_block        = var.PUB_SN1_cidr
-  availability_zone = var.az2a
+  cidr_block        = var.PubSn1_cidr
+  availability_zone = var.az1
   tags = {
-    Name = var.pub_subn1
+    Name = var.PubSn1
   }
 }
 
-# create public subnet 2
-resource "aws_subnet" "PUB_SN2" {
+# create Public Subnet 2
+resource "aws_subnet" "PubSn2" {
   vpc_id            = aws_vpc.VPC.id
-  cidr_block        = var.PUB_SN2_cidr
-  availability_zone = var.az2b
+  cidr_block        = var.PubSn2_cidr
+  availability_zone = var.az2
   tags = {
-    Name = var.pub_subn2
-  }
-}
-
-# create private subnet 1
-resource "aws_subnet" "PRV_SN1" {
-  vpc_id            = aws_vpc.VPC.id
-  cidr_block        = var.PRV_SN1_cidr
-  availability_zone = var.az2a
-  tags = {
-    Name = var.prv_subn1
-  }
-}
-
-# create private subnet 2
-resource "aws_subnet" "PRV_SN2" {
-  vpc_id            = aws_vpc.VPC.id
-  cidr_block        = var.PRV_SN2_cidr
-  availability_zone = var.az2b
-  tags = {
-    Name = var.prv_subn2
+    Name = var.PubSn2
   }
 }
 
 # create an IGW
-resource "aws_internet_gateway" "IGW" {
+resource "aws_internet_gateway" "Igw" {
   vpc_id = aws_vpc.VPC.id
-
   tags = {
     Name = var.igw_name
   }
 }
 
-# create the EIP
+# create public Subnet route table
+resource "aws_route_table" "PubSnRT" {
+  vpc_id = aws_vpc.VPC.id
+  route {
+    cidr_block = var.all
+    gateway_id = aws_internet_gateway.Igw.id
+  }
+  tags = {
+    Name = var.PubSnRT
+  }
+}
+
+# create Route table Association for Public Subnet 1 
+resource "aws_route_table_association" "PubRTAss1" {
+  subnet_id      = aws_subnet.PubSn1.id
+  route_table_id = aws_route_table.PubSnRT.id
+}
+
+# create Route table Association for Public Subnet 2
+resource "aws_route_table_association" "PubRTAss2" {
+  subnet_id      = aws_subnet.PubSn2.id
+  route_table_id = aws_route_table.PubSnRT.id
+}
+
+# create Private Subnet 1
+resource "aws_subnet" "PrvSn1" {
+  vpc_id            = aws_vpc.VPC.id
+  cidr_block        = var.PrvSn1_cidr
+  availability_zone = var.az1
+  tags = {
+    Name = var.PrvSn1
+  }
+}
+
+# create Private Subnet 2
+resource "aws_subnet" "PrvSn2" {
+  vpc_id            = aws_vpc.VPC.id
+  cidr_block        = var.PrvSn2_cidr
+  availability_zone = var.az2
+  tags = {
+    Name = var.PrvSn2
+  }
+}
+
+# create elastic ip
 resource "aws_eip" "EIP" {
-  depends_on = [aws_internet_gateway.IGW]
+  vpc = true
 }
-
-# create the NAT gateway
-resource "aws_nat_gateway" "NAT_GW" {
+# create Nat gateway
+resource "aws_nat_gateway" "NGW" {
   allocation_id = aws_eip.EIP.id
-  subnet_id     = aws_subnet.PUB_SN1.id
-
+  subnet_id     = aws_subnet.PubSn1.id
   tags = {
-    Name = var.nat_gateway
+    Name = var.Ngw_name
   }
 }
 
-# create a public route table
-resource "aws_route_table" "RT_Pub_SN" {
+# create private route table
+resource "aws_route_table" "PrvSnRT" {
   vpc_id = aws_vpc.VPC.id
-
   route {
-    cidr_block = var.my_system2
-    gateway_id = aws_internet_gateway.IGW.id
+    cidr_block = var.all
+    nat_gateway_id = aws_nat_gateway.NGW.id
   }
   tags = {
-    Name = var.route_pub_table
+    Name = var.PrvSnRT
   }
 }
-# create a private route table
-resource "aws_route_table" "RT_Prv_SN" {
-  vpc_id = aws_vpc.VPC.id
 
-  route {
-    cidr_block = var.my_system2
-    gateway_id = aws_nat_gateway.NAT_GW.id
-  }
-  tags = {
-    Name = var.route_prv_table
-  }
-}
-# association of route table to public SN 1 
-resource "aws_route_table_association" "Public_RT_ass_01" {
-  subnet_id      = aws_subnet.PUB_SN1.id
-  route_table_id = aws_route_table.RT_Pub_SN.id
+# create Route table Association for Private Subnet 1 
+resource "aws_route_table_association" "PrvRTAss1" {
+  subnet_id      = aws_subnet.PrvSn1.id
+  route_table_id = aws_route_table.PrvSnRT.id
 }
 
-# association of route table to Public SN 2
-resource "aws_route_table_association" "Public_RT_ass_02" {
-  subnet_id      = aws_subnet.PUB_SN2.id
-  route_table_id = aws_route_table.RT_Pub_SN.id
+# create Route table Association for Private Subnet 2
+resource "aws_route_table_association" "PrvRTAss2" {
+  subnet_id      = aws_subnet.PrvSn2.id
+  route_table_id = aws_route_table.PrvSnRT.id
 }
-
-# association of route table to private SN 1 
-resource "aws_route_table_association" "Private_RT_ass_01" {
-  subnet_id      = aws_subnet.PRV_SN1.id
-  route_table_id = aws_route_table.RT_Prv_SN.id
-}
-
-# association of route table to private SN 2 
-resource "aws_route_table_association" "Private_RT_ass_02" {
-  subnet_id      = aws_subnet.PRV_SN2.id
-  route_table_id = aws_route_table.RT_Prv_SN.id
-}
-

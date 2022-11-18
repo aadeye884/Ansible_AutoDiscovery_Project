@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "ansible-node" {
   }
 }
 resource "aws_iam_policy" "ansible_node" {
-  name        = "ansible-node-aws-cli-policy"
+  name        = "ansible-node-aws-cli-policy-ust1"
   path        = "/"
   description = "Access policy for Ansible_node to connect to aws account"
   policy      = data.aws_iam_policy_document.ansible-node.json

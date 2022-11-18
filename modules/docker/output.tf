@@ -1,6 +1,8 @@
-output "docker_host_private_ip" {
-  value = aws_instance.docker_host.private_ip
+output "Docker_IP" {
+  value       = aws_instance.docker_host.private_ip
+  description = "Docker private IP"
 }
-output "docker-instance" {
-  value = aws_instance.docker_host.id
+output "docker_id" {
+  value       = aws_instance.docker_host.id
+  description = "Docker Instance ID"
 }

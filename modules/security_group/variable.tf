@@ -1,3 +1,4 @@
+# RDS-SG Variables
 variable "my_system" {
     default = ["0.0.0.0/0"]
     description = "this cidr block is open to the world"
@@ -43,5 +44,13 @@ variable "port_mysql" {
 }
 
 variable "sg_name4" {
+  default     = ""
+}
+
+variable "sg_name5" {
+  default     = ""
+}
+
+variable "sg_name6" {
   default     = ""
 }

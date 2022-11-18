@@ -1,60 +1,62 @@
-# VPC related variables 
 variable "vpc_cidr" {
     default     = "10.0.0.0/16"
-    description = "VPC"
-}
-variable "PUB_SN1_cidr" {
-    default     = "10.0.0.0/24"
-    description = "PUB_SN1"
-}
-variable "PUB_SN2_cidr" {
-    default     = "10.0.1.0/24"
-    description = "PUB_SN2"
-}
-variable "PRV_SN1_cidr" {
-    default     = "10.0.2.0/24"
-    description = "PRV_SN1"
-}
-variable "PRV_SN2_cidr"{
-    default     = "10.0.3.0/24"
-    description = "PRV_SN2"
-}
-variable "az2a"{
-    default = "us-east-1a"
-}
-variable "az2b"{
-    default = "us-east-1b"
-}
-variable "my_system" {
-    default = ["0.0.0.0/0"]
-}
-variable "my_system2" {
-    default = "0.0.0.0/0"
 }
 variable "vpc_name" {
-    default = "VPC"
+    default = "UST1_VPC"
 }
-variable "pub_subn1" {
-    default = "PUB_SN1"
+variable "az1"{
+    default = "us-east-1a"
 }
-variable "pub_subn2" {
-    default = "PUB_SN2"
+variable "PubSn1_cidr" {
+    default     = "10.0.1.0/24"
 }
-variable "prv_subn1" {
-    default = "PRV_SN1"
+variable "PubSn1" {
+    default = "PubSn1"
 }
-variable "prv_subn2" {
-    default = "PRV_SN2"
+variable "PubSn2_cidr" {
+    default     = "10.0.2.0/24"
+}
+variable "az2"{
+    default = "us-east-1b"
+}
+variable "PubSn2" {
+    default = "PubSn2"
 }
 variable "igw_name" {
-    default = "IGW"
+    default = "UST1_IGW"
 }
-variable "nat_gateway" {
-    default = "NAT_GW"
+variable "PubSnRT" {
+    default = "UST1_PubSnRT"
 }
-variable "route_pub_table" {
-    default = "RT_Pub_SN"
+variable "Ngw_name" {
+    default = "UST1_NGW" 
 }
-variable "route_prv_table" {
-    default = "RT_Prv_SN"
+variable "PrvSnRT" {
+    default = "UST1_PrvSnRT"  
 }
+variable "PrvSn1_cidr" {
+    default     = "10.0.3.0/24"
+}
+variable "PrvSn1" {
+    default = "PrvSn1"
+}
+variable "PrvSn2_cidr" {
+    default     = "10.0.4.0/24"
+}
+variable "PrvSn2" {
+    default = "PrvSn2"
+}
+variable "all" {
+    default = "0.0.0.0/0"
+}
+
+
+
+
+
+
+
+
+
+
+

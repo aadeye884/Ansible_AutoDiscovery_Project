@@ -1,23 +1,7 @@
-variable "instance_type" {
-    default = "t2.micro"
-}
-
-variable "ami" {
-    default = "ami-06640050dc3f556bb"
-}
-
-variable "subnet_id" {
-    default = ""
-}
-
-variable "availability_zone" {
-    default = "us-east-1a"
-}
-
-variable "key_name" {
-    default = ""
-}
-
-variable "vpc_security_group_ids" {
-    default = ""
-}
+# Bastion Variables
+variable "instance_type" {}
+variable "ami" {}
+variable "subnet_id" {}
+variable "availability_zone" {}
+variable "key_name" {}
+variable "vpc_security_group_ids" {}

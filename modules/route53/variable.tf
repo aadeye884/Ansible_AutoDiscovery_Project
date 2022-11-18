@@ -1,11 +1,9 @@
 variable "domain_name" {
-    default = ""
+  default = ""
 }
-
-variable "lb_dns_name" {
-    default = ""
+variable "dns_name" {
+  default = ""
 }
-
-variable "lb_zone_id" {
-    default = ""
+variable "zone_id" {
+  default = ""
 }

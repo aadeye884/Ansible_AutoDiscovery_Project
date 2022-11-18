@@ -1,3 +1,4 @@
+#ASG Variables
 variable "ami-name" {
   default = ""
 }
@@ -10,10 +11,7 @@ variable "launch-configname" {
 variable "instance-type" {
   default = ""
 }
-variable "ami-from-instance" {
-  default = ""
-}
-variable "sg1" {
+variable "sg_name2" {
   default = ""
 }
 variable "key_name" {
@@ -25,9 +23,9 @@ variable "asg-group-name" {
 variable "vpc-zone-identifier" {
     default = ""  
 }
-variable "target-group-arn" {
-    default = ""  
-}
+# variable "target-group-arn" {
+#     default = ""  
+# }
 variable "asg-policy" {
     default = ""  
 }

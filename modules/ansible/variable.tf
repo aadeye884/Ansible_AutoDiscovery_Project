@@ -1,27 +1,11 @@
-variable "instance_type_t2" {
-    default = "t2.micro"
-}
+variable "instance_type" {}
+variable "ami" {}
+variable "subnet_id" {}
 
-variable "ami" {
-    default = "ami-06640050dc3f556bb"
-}
+variable "availability_zone" {}
 
-variable "subnet_id" {
-    default = ""
-}
+variable "key_name" {}
 
-variable "availability_zone" {
-    default = "us-east-1a"
-}
+variable "vpc_security_group_ids" {}
 
-variable "key_name" {
-    default = ""
-}
-
-variable "vpc_security_group_ids" {
-    default = ""
-}
-
-variable "iam_instance_profile" {
-    default = ""
-}
+variable "iam_instance_profile" {}

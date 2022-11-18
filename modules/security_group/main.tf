@@ -40,6 +40,7 @@ resource "aws_security_group" "JenkinsSG" {
   }
 } 
 
+# Create Bastion Security Group
 resource "aws_security_group" "BastionSG" {
   name        = var.sg_name1
   description = "Allow TLS inbound traffic"
@@ -107,6 +108,7 @@ resource "aws_security_group" "DockerSG" {
   }
 } 
 
+# RDS Security group = RDS-SG
 resource "aws_security_group" "rdsSG" {
   name        = var.sg_name3
   description = "Allow TLS inbound traffic"
@@ -157,3 +159,53 @@ resource "aws_security_group" "AnsibleSG" {
     Name = var.sg_name4
   }
 }
+
+# Create loadbalancer Security Group
+resource "aws_security_group" "docker_lbSG" {
+  name        = var.sg_name5
+  description = "Allow TLS inbound traffic"
+  vpc_id      = var.vpc_id
+
+    ingress {
+    description = "Allow http from VPC"
+    from_port   = var.port_http
+    to_port     = var.port_http
+    protocol    = "tcp"
+    cidr_blocks = var.my_system
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.my_system
+  }
+  tags = {
+    Name = var.sg_name5
+  }
+} 
+
+# Create Jenkins classic loadbalancer Security Group
+resource "aws_security_group" "jenkins_elbSG" {
+  name        = var.sg_name6
+  description = "Allow TLS inbound traffic"
+  vpc_id      = var.vpc_id
+
+    ingress {
+    description = "Allow http from VPC"
+    from_port   = var.port_http
+    to_port     = var.port_http
+    protocol    = "tcp"
+    cidr_blocks = var.my_system
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = var.my_system
+  }
+  tags = {
+    Name = var.sg_name6
+  }
+} 

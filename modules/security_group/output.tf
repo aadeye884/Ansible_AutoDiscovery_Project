@@ -17,3 +17,11 @@ output "rdsSG" {
 output "AnsibleSG" {
   value       = aws_security_group.AnsibleSG.id
 }
+
+output "docker_lbSG" {
+  value       = aws_security_group.docker_lbSG.id
+}
+
+output "jenkins_elbSG" {
+  value       = aws_security_group.jenkins_elbSG.id
+}

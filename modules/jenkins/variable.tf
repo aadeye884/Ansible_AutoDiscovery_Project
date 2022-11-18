@@ -1,23 +1,11 @@
-variable "instance_type" {
-    default = "t2.medium"
-}
+variable "instance_type" {}
 
-variable "ami" {
-    default = "ami-06640050dc3f556bb"
-}
+variable "ami" {}
 
-variable "subnet_id" {
-    default = "aws_subnet.PRV_SN1.id"
-}
+variable "subnet_id" {}
 
-variable "availability_zone" {
-    default = "us-east-1a"
-}
+variable "availability_zone" {}
 
-variable "key_name" {
-    default = ""
-}
+variable "key_name" {}
 
-variable "vpc_security_group_ids" {
-    default = ""
-}
+variable "vpc_security_group_ids" {}
